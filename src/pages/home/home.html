@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Comics</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-searchbar
+		(ionInput)="onInput($event)"
+		(ionCancel)="onCancel($event)">
+	</ion-searchbar>
+
+	<ion-list *ngIf="getComics().length > 0">
+		<button ion-item *ngFor="let comic of getComics()" (click)="comicSelected(comic)">
+			<ion-thumbnail item-left>
+				<img src="{{ comic.thumbnail.path + '.' + comic.thumbnail.extension }}">
+			</ion-thumbnail>
+			<h2>{{ comic.title }}</h2>
+			<p>{{ comic.dates[0].showDate() }}, Paginas:{{ comic.pageCount }}</p>      	
+		</button>  
+	</ion-list>
+
+	<ion-list *ngIf="getComics().length == 0">
+		<ion-item *ngIf="queryString == null && fetching">
+			<h1>Cargando...</h1>
+		</ion-item>
+		<ion-item *ngIf="queryString == null && !fetching">
+			<h1>No hay comics.</h1>
+		</ion-item>
+		<ion-item *ngIf="queryString && fetching">
+			<h1>Buscando...</h1>
+		</ion-item>
+		<ion-item *ngIf="queryString && !fetching">
+			<h1>No hay resultados.</h1>
+		</ion-item>
+	</ion-list>
+
+	<ion-infinite-scroll (ionInfinite)="loadMoreComics($event)">
+		<ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+
+</ion-content>
