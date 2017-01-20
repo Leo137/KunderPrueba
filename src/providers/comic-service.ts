@@ -13,7 +13,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 @Injectable()
 export class ComicService {
 
-	private comicsUrl = 'http://gateway.marvel.com/v1/public/comics';  // URL to web API
+	private comicsUrl = 'https://gateway.marvel.com/v1/public/comics';  // URL to web API
 	private publicKey = '35e0d5285ca976e4ca0d505ae991c336';
 	private privateKey = '7931cf6ebf10944d2e4100eba0221fd8e131d710';
 
