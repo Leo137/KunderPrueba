@@ -20,28 +20,28 @@ export class ComicService {
 	constructor(public http: Http) {}
 
 	getComics(offset = 0, limit = 10, queryString = null): Observable<Comic[]> {
-		if(queryString){
+  		if(queryString){
 
-			// Check if the query is year-like
-            if(queryString.match(/\d{4}/)) {
-            	return this.http.get(this.comicsUrl, this.requestOptions(offset, limit, null, queryString))
-            	        .map(this.extractData)
-            	        .catch(this.handleError);
-            }
-            else {
-            	return this.http.get(this.comicsUrl, this.requestOptions(offset, limit, queryString))
-                    .map(this.extractData)
-                    .catch(this.handleError);
-            }
-		}
-		else {
+  			// Check if the query is year-like
+              if(queryString.match(/\d{4}/)) {
+              	return this.http.get(this.comicsUrl, this.requestOptions(offset, limit, null, queryString))
+              	        .map(this.extractData)
+              	        .catch(this.handleError);
+              }
+              else {
+              	return this.http.get(this.comicsUrl, this.requestOptions(offset, limit, queryString))
+                      .map(this.extractData)
+                      .catch(this.handleError);
+              }
+  		}
+  		else {
 
-			// Normal query
+  			// Normal query
 
-			return this.http.get(this.comicsUrl, this.requestOptions(offset, limit))
-                    .map(this.extractData)
-                    .catch(this.handleError);
-		}
+  			return this.http.get(this.comicsUrl, this.requestOptions(offset, limit))
+                      .map(this.extractData)
+                      .catch(this.handleError);
+  		}
   	}
 
   	private requestOptions(offset, limit, queryStringTitle = null, queryStringYear = null) {
